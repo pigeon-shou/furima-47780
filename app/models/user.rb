@@ -2,8 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :items, dependent: :destroy
-  has_many :orders, dependent: :destroy
+  has_many :items
+  has_many :orders
 
   validates :nickname, presence: true
   validates :birth_date, presence: true
@@ -13,7 +13,7 @@ class User < ApplicationRecord
             format: { with: VALID_PASSWORD_REGEX }, allow_blank: true,
             if: :password_required?
 
-  VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥々ー]+\z/
+  VALID_NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
 
   with_options presence: true do
     validates :first_name
