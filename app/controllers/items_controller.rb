@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
   def index
+    # 新規順に並べる記述
   end
 
   def new
@@ -11,7 +13,7 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -19,6 +21,6 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:item_name, :description, :price, :category_id, :condition_id, :shipping_fee_id,
-                                 :prefecture_id, :shipping_day_id).merge(user_id: current_user.id)
+                                 :prefecture_id, :shipping_day_id, :image).merge(user_id: current_user.id)
   end
 end
