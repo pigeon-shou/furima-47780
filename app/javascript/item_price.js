@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
 const priceInput = document.getElementById("item-price");
+
 priceInput.addEventListener("input", () => {
     const price = Number(priceInput.value);
     const tax = Math.floor(price * 0.1);

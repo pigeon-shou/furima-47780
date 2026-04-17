@@ -9,10 +9,13 @@ class Item < ApplicationRecord
   # ここまでActiveHashで紐付けた要素
   belongs_to :user
 
-  with_options presence: true do
-    validates :item_name
-    validates :description
-    validates :price
+  validates :item_name, presence: true
+  validates :description, presence: true
+  validates :price, presence: true
+  validates :image, presence: { message: '画像を一枚送付してください' }
+  # image_attached?使うかどうかレビュー次第
+
+  with_options presence: true, numericality: { other_than: 1, message: 'を選択してください' } do
     validates :category_id
     validates :condition_id
     validates :shipping_fee_id
@@ -23,6 +26,7 @@ class Item < ApplicationRecord
   validates :item_name, length: { maximum: 40 }
   validates :description, length: { maximum: 1000 }
 
-  validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+  validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: '300~9,999,999の範囲で入力してください' },
+                    allow_blank: true
   # 数値性のチェック+範囲指定
 end
