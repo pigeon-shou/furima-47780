@@ -11,7 +11,6 @@ class Item < ApplicationRecord
 
   validates :item_name, presence: true
   validates :description, presence: true
-  validates :price, presence: true
   validates :image, presence: { message: '画像を一枚送付してください' }
   # image_attached?使うかどうかレビュー次第
 
@@ -26,7 +25,11 @@ class Item < ApplicationRecord
   validates :item_name, length: { maximum: 40 }
   validates :description, length: { maximum: 1000 }
 
-  validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: '300~9,999,999の範囲で入力してください' },
-                    allow_blank: true
-  # 数値性のチェック+範囲指定
+  validates :price,
+            presence: true,
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: 300,
+              less_than_or_equal_to: 9_999_999, message: 'は半角数字で300円以上9,999,999円以下にしてください'
+            }
 end
