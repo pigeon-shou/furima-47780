@@ -13,6 +13,14 @@ RSpec.describe Item, type: :model do
         @item.price = 500
         expect(@item).to be_valid
       end
+      it 'item_nameが40文字以下なら登録できる' do
+        @item.item_name = 'a' * 40
+        expect(@item).to be_valid
+      end
+      it 'descriptionが1000文字以下なら登録できる' do
+        @item.description = 'a' * 1000
+        expect(@item).to be_valid
+      end
     end
     context '商品登録できない場合' do
       it 'item_nameが空では登録できない' do
@@ -45,30 +53,50 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price は半角数字で300円以上9,999,999円以下にしてください')
       end
-      it 'category_idが空では登録できない' do
-        @item.category_id = ''
+      it 'category_idが1のままでは登録できない' do
+        @item.category_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank", 'Category を選択してください')
+        expect(@item.errors.full_messages).to include('Category を選択してください')
       end
-      it 'condition_idが空では登録できない' do
-        @item.condition_id = ''
+      it 'condition_idが1のままでは登録できない' do
+        @item.condition_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition can't be blank", 'Condition を選択してください')
+        expect(@item.errors.full_messages).to include('Condition を選択してください')
       end
-      it 'shipping_fee_idがからでは登録できない' do
-        @item.shipping_fee_id = ''
+      it 'shipping_fee_idが1のままでは登録できない' do
+        @item.shipping_fee_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping fee can't be blank", 'Shipping fee を選択してください')
+        expect(@item.errors.full_messages).to include('Shipping fee を選択してください')
       end
-      it 'prefecture_idがからでは登録できない' do
-        @item.prefecture_id = ''
+      it 'prefecture_idが1のままでは登録できない' do
+        @item.prefecture_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture can't be blank", 'Prefecture を選択してください')
+        expect(@item.errors.full_messages).to include('Prefecture を選択してください')
       end
-      it 'shipping_day_idがからでは登録できない' do
-        @item.shipping_day_id = ''
+      it 'shipping_day_idが1のままでは登録できない' do
+        @item.shipping_day_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping day can't be blank", 'Shipping day を選択してください')
+        expect(@item.errors.full_messages).to include('Shipping day を選択してください')
+      end
+      it 'imageが送付されてないと登録できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Image 画像を一枚送付してください')
+      end
+      it 'userが紐づいてないと登録できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
+      end
+      it 'item_nameが41文字以上では登録できない' do
+        @item.item_name = 'a' * 41
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Item name is too long (maximum is 40 characters)')
+      end
+      it 'descriptionが1001文字以上では登録できない' do
+        @item.description = 'a' * 1001
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Description is too long (maximum is 1000 characters)')
       end
     end
   end

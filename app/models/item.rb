@@ -6,13 +6,11 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :prefecture
   belongs_to :shipping_day
-  # ここまでActiveHashで紐付けた要素
   belongs_to :user
 
   validates :item_name, presence: true
   validates :description, presence: true
   validates :image, presence: { message: '画像を一枚送付してください' }
-  # image_attached?使うかどうかレビュー次第
 
   with_options presence: true, numericality: { other_than: 1, message: 'を選択してください' } do
     validates :category_id
