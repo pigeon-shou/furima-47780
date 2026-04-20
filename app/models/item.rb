@@ -23,11 +23,10 @@ class Item < ApplicationRecord
   validates :item_name, length: { maximum: 40 }
   validates :description, length: { maximum: 1000 }
 
-  validates :price,
-            presence: true,
-            numericality: {
-              only_integer: true,
-              greater_than_or_equal_to: 300,
-              less_than_or_equal_to: 9_999_999, message: 'は半角数字で300円以上9,999,999円以下にしてください'
-            }
+  validates :price, presence: true
+  validates :price, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 300,
+    less_than_or_equal_to: 9_999_999, message: 'は半角数字で300円以上9,999,999円以下にしてください'
+  }, allow_blank: true
 end
