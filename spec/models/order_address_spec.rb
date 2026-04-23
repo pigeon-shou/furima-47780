@@ -12,6 +12,9 @@ RSpec.describe OrderAddress, type: :model do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@order_address).to be_valid
       end
+      it 'tokenがあれば保存ができること' do
+        expect(@order_address).to be_valid
+      end
       it '建物名が空でも登録できること' do
         @order_address.building = ''
         expect(@order_address).to be_valid
@@ -41,7 +44,11 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Prefecture 都道府県を選択してください')
       end
-
+      it 'tokenが空では登録できないこと' do
+        @order_address.token = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Token can't be blank")
+      end
       it 'cityが空だと保存できないこと' do
         @order_address.city = ''
         @order_address.valid?

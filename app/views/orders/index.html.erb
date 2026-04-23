@@ -1,3 +1,4 @@
+<%= include_gon %> %>
 <%= render "shared/second-header"%>
 
 <div class='transaction-contents'>
@@ -70,6 +71,7 @@
     <%# /カード情報の入力 %>
     
     <%# 配送先の入力 %>
+    <%= render "shared/error_messages", model: @order_address %>
     <div class='shipping-address-form'>
       <h1 class='info-input-haedline'>
         配送先入力
