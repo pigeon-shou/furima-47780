@@ -29,6 +29,8 @@ gem "devise"
 gem "active_hash"
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+gem 'payjp'
+gem 'gon'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

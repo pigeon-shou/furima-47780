@@ -23,6 +23,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    # rubocop:disable Style/GuardClause, Style/IfUnlessModifier
+    if @item.order.present?
+      redirect_to root_path
+    end
+    # rubocop:enable Style/GuardClause, Style/IfUnlessModifier
   end
 
   def update
