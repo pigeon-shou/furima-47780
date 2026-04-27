@@ -83,3 +83,4 @@ group :production do
   gem 'pg'
   gem 'unicorn', '6.1.0'
 end
+gem "nokogiri", force_ruby_platform: true
